@@ -1,18 +1,139 @@
+
+body {
+    width: 100%;
+    background: linear-gradient(180deg, #b29db3e2 30%,rgb(223, 221, 226) 30%);
+}
+
+
+.center {
+    font-family: Times New Roman;
+    width: 50%;
+    margin: auto;
+    background-color: rgb(248, 249, 250);
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a {
+    color: #0366d6;
+}
+
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
+
+.addRating {
+    margin: 0 auto 0 auto;
+}
+
+
+h1 {
+    color: #111;
+    font-size: 4vw;
+    font-weight: 700;
+    line-height: 64px;
+    margin: 0 0 0;
+    padding: 20px 30px;
+    text-transform: uppercase;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+    background-color: #8064A2 !important;
+    border: #8064A2;
+    color: white;
+}
+
+.btn {
+    border-radius: 15px;
+    width: 100px;
+}
+
+.btn_start {
+    margin-top: 30px
+}
+
+
+
+#logo {
+    height: 100pt;
+    position: relative;
+    top: 34pt;
+    z-index: 2;
+}
+
+#root, body, html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0%;
+}
+

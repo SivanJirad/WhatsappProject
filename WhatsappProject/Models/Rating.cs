@@ -2,43 +2,46 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
-
-
 namespace WhatsappServer.Models
 {
-
-
-public class Rating
+    public class Rating
     {
-        private static int sequenceNumber =0;
-
-
         private string name;
         private int rate;
         private string review;
         private int id;
 
-
-
-
         public Rating() {}
 
-
-        public Rating( string name, int rate, string review = null)
+        public Rating(string name, int rate, int id, string review = null)
         {
             this.name = name;
             this.rate = rate;
-            if(review == null)
+            this.id = id;
+
+            if (review == null)
             {
-                this.review = null;
+                review = "No description";
             }
+
             this.review = review;
-
-
-
         }
 
+        public string UserName
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public int Rate
+        {
+            get { return rate; }
+            set { rate = value; }
+        }
+        public string Review
+        {
+            get { return review; }
+            set { review = value; }
+        }
         public int ID
         {
             get { return id; }
@@ -46,46 +49,22 @@ public class Rating
         }
 
 
-
-        public void setID()
+        public int setID()
         {
-           using (var db = new ItemsContext())
+            using (var db = new ItemsContext())
                 {
-                 if (db.Items.Any())
+                if (db.Ratings.Any())
+                {
+                    var last_rating = db.Ratings.Max(ratings => ratings.ID);
+                    if (last_rating > 0)
                     {
-                        var last_rating = db.Items.Max(ratings => ratings.ID);
-                        this.id = last_rating +1;
+                        return last_rating + 1;
                     }
-                
-                else
-                {
-                    this.id = 0;
-                }
-
-            }
+                    }
+                return 0;
+;               }
         }
-
-
-        public string UserName
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public int Rate
-        {
-            get { return rate; }
-            set { rate = value; }
-        }
-
-        public string Review
-        {
-            get { return review; }
-            set { review = value; }
-        }
-
-
-
+ 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Time
         { get; set; }

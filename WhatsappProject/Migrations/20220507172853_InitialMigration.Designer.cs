@@ -11,7 +11,7 @@ using WhatsappServer;
 namespace WhatsappProject.Migrations
 {
     [DbContext(typeof(ItemsContext))]
-    [Migration("20220507143158_InitialMigration")]
+    [Migration("20220507172853_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace WhatsappProject.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Items");
+                    b.ToTable("Ratings");
                 });
 #pragma warning restore 612, 618
         }

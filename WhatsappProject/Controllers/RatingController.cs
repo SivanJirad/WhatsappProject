@@ -5,18 +5,15 @@ namespace WhatsappServer.Controllers
 {
     public class RatingController : Controller
     {
+        private RatingModel ratingModel = new RatingModel();
 
-        RatingModel ratingModel = new RatingModel();
-        public IActionResult Index()
+
+        public IActionResult RatingList()
         {
-            return View();
+            var ratings = ratingModel.getAllRatings();
+            return View("RatingList", ratings);
         }
-
-
-        public IActionResult AddRating()
-        {
-            return View();
-        }
+        
 
         public IActionResult RatingItem(int ID)
         {
@@ -25,24 +22,18 @@ namespace WhatsappServer.Controllers
         }
 
 
-
-
-        [HttpGet]
-        public IActionResult RatingList()
+        public IActionResult AddRating()
         {
-            var ratings = ratingModel.getAllRatings();
-            return View("RatingList", ratings);
+            return View();
         }
 
+      
         [HttpPost]
         public IActionResult AddItemToDB(Rating rating)
         {
-
             //return Content($"Hello {rating.UserName}");
             ratingModel.addItem(rating);
             return Redirect("ratinglist");
         }
-
-
     }
 }
