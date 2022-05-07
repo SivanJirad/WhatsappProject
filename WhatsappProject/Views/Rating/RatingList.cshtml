@@ -1,0 +1,23 @@
+﻿@using System.IO;
+@using WhatsappServer.Models;
+@model List<Rating>
+
+
+
+<h1>Rating List</h1>
+
+<a asp-controller="Rating" asp-action="AddRating" class="btn btn-primary">Add Rating</a>
+
+
+@foreach (Rating rating in Model) 
+{
+	<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h3 class="card-title">@rating.UserName</h3>
+        <h4>Rate: @rating.Rate</h4>
+        <p class="card-text"> description: @rating.Review </p>
+        <a asp-controller="Rating" asp-action="RatingItem" asp-route-ratingID=@rating.ID class="btn btn-primary">Show Rating</a>
+        @*<a asp-controller="Rating" asp-action="RatingItem" asp-route-itemName=@rating.UserName class="btn btn-primary">Remove Rating</a>*@
+      </div>
+    </div>
+}
