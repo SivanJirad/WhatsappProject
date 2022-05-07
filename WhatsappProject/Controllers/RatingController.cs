@@ -17,8 +17,17 @@ namespace WhatsappServer.Controllers
 
         public IActionResult RatingItem(int ID)
         {
-            var rating = ratingModel.getRating(ID);
+            Rating? rating = ratingModel.getRating(ID);
             return View("RatingItem", rating);
+        }
+
+
+
+        public IActionResult RemoveFromDB(int ID)
+        {
+            //return Content($"Hello {rating.UserName}");
+            ratingModel.removeRating(ID);
+            return RatingList();
         }
 
 

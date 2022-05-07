@@ -42,10 +42,11 @@ namespace WhatsappServer.Models
             get { return review; }
             set { review = value; }
         }
+
+        [Key]
         public int ID
         {
-            get { return id; }
-            set { this.id = value; }
+            get; set;
         }
 
 

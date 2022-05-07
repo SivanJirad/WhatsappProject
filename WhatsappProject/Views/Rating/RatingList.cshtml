@@ -16,7 +16,8 @@
         <h3 class="card-title">@rating.UserName</h3>
         <h4>Rate: @rating.Rate</h4>
         <p class="card-text"> description: @rating.Review </p>
-        <a asp-controller="Rating" asp-action="RatingItem" asp-route-ratingID=@rating.ID class="btn btn-primary">Show Rating</a>
+        <a asp-controller="Rating" asp-action="RatingItem" asp-route-ID=@rating.ID class="btn btn-primary">Show Rating</a>
+
       </div>
     </div>
 }

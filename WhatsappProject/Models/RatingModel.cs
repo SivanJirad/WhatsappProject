@@ -30,17 +30,23 @@
                 return items;
             }
         }
-        /*
-        //Get Item
+
         public void removeRating(int ID)
         {
             using (var db = new ItemsContext())
             {
-                Item? item = db.Items.Find(itemName);
-                return item;
+                Rating? item = db.Ratings.Find(ID);
+                if(item != null)
+                {
+                    db.Ratings.Remove(item);
+                    db.SaveChanges();
+                }
+  
+
             }
+
         }
-        */
+       
     }
     
 }
