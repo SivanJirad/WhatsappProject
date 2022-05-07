@@ -14,7 +14,7 @@ namespace WhatsappProject.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "Ratings",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -28,7 +28,7 @@ namespace WhatsappProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.ID);
+                    table.PrimaryKey("PK_Ratings", x => x.ID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
@@ -36,7 +36,7 @@ namespace WhatsappProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Items");
+                name: "Ratings");
         }
     }
 }

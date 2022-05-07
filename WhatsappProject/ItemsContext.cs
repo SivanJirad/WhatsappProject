@@ -21,6 +21,6 @@ namespace WhatsappServer
             modelBuilder.Entity<Rating>().HasKey(e => e.ID);
         }
 
-        public DbSet<Rating> Items { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }

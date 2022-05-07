@@ -41,7 +41,7 @@ namespace WhatsappProject.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Items");
+                    b.ToTable("Ratings");
                 });
 #pragma warning restore 612, 618
         }
