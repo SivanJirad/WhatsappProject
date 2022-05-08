@@ -50,12 +50,11 @@ namespace WhatsappServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditItemInDB(Rating rating, int ID
-            )
+        public IActionResult EditItemInDB(Rating rating, int ID, string UserName)
  
         //public IActionResult EditItemInDB(int ID, int Rate, string Review)
         {
-            ratingModel.editItem(rating, ID);
+            ratingModel.editItem(rating, ID, UserName);
             //return Redirect("ratinglist");
             return RatingList();
         }

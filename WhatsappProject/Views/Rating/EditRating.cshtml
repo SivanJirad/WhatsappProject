@@ -2,7 +2,7 @@
     @* <img id="logo" alt="logo" src={logo}></img> *@
     <div id="editItem" class="center shadow-lg p-3 mb-5 bg-white rounded">
       <h1>Edit Rating</h1>
-      <form asp-action="EditItemInDB" asp-route-ID=@Model.ID method="post">
+      <form asp-action="EditItemInDB" asp-route-ID=@Model.ID asp-route-UserName=@Model.UserName method="post">
         <div className="form-floating sign">
             <input asp-for="UserName" type="text" class="form-control" name="UserName"  placeholder="Name" required="required" disabled/>
         </div>

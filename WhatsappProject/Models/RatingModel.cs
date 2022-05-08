@@ -14,7 +14,7 @@
         }
 
 
-        public void editItem(Rating rating, int ID)
+        public void editItem(Rating rating, int ID, string UserName)
         {
             /*
             rating.Time = DateTime.Now;
@@ -31,7 +31,7 @@
                 Rating? item = db.Ratings.Find(ID);
                 if (item != null)
                 {
-                    item.UserName = "hi";
+                    item.UserName = UserName;
                     item.Rate = rating.Rate;
                     item.Review=rating.Review;
                     item.Time = DateTime.Now;
