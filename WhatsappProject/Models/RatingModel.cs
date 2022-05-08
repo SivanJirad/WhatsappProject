@@ -13,6 +13,37 @@
             }
         }
 
+
+        public void editItem(Rating rating, int ID)
+        {
+            /*
+            rating.Time = DateTime.Now;
+            rating.ID = rating.setID();
+            using (var db = new ItemsContext())
+            {
+                db.Add(rating);
+                db.SaveChanges();
+            }
+            */
+            
+            using (var db = new ItemsContext())
+            {
+                Rating? item = db.Ratings.Find(ID);
+                if (item != null)
+                {
+                    item.UserName = "hi";
+                    item.Rate = rating.Rate;
+                    item.Review=rating.Review;
+                    item.Time = DateTime.Now;
+                    db.SaveChanges();
+                }
+            
+        }
+            
+            
+        }
+
+
         public Rating? getRating(int ID)
         {
             using (var db = new ItemsContext())

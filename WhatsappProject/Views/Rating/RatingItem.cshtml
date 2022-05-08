@@ -7,6 +7,8 @@
 	<p>Description: @Model.Review</p>
 	<p>Time: @Model.Time</p>
 	<a asp-controller="Rating" asp-action="RemoveFromDB" asp-route-ID=@Model.ID class="btn btn-primary">Remove</a>
-
-
+	<a asp-controller="Rating" asp-action="EditRating" asp-route-ID=@Model.ID class="btn btn-primary">Edit Rating</a>
 </div>
+
+@*<a asp-controller="Rating" asp-action="AddRating" class="btn btn-primary">Add Rating</a>
+*@

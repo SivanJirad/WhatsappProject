@@ -21,7 +21,11 @@ namespace WhatsappServer.Controllers
             return View("RatingItem", rating);
         }
 
-
+        public IActionResult EditRating(int ID)
+        {
+            Rating? rating = ratingModel.getRating(ID);
+            return View("EditRating", rating);
+        }
 
         public IActionResult RemoveFromDB(int ID)
         {
@@ -43,6 +47,17 @@ namespace WhatsappServer.Controllers
             //return Content($"Hello {rating.UserName}");
             ratingModel.addItem(rating);
             return Redirect("ratinglist");
+        }
+
+        [HttpPost]
+        public IActionResult EditItemInDB(Rating rating, int ID
+            )
+ 
+        //public IActionResult EditItemInDB(int ID, int Rate, string Review)
+        {
+            ratingModel.editItem(rating, ID);
+            //return Redirect("ratinglist");
+            return RatingList();
         }
     }
 }
