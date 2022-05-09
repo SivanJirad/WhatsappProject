@@ -31,7 +31,7 @@ namespace WhatsappServer.Controllers
         {
             //return Content($"Hello {rating.UserName}");
             ratingModel.removeRating(ID);
-            return RatingList();
+            return Redirect("/Rating/RatingList");
         }
 
 
@@ -55,8 +55,8 @@ namespace WhatsappServer.Controllers
         //public IActionResult EditItemInDB(int ID, int Rate, string Review)
         {
             ratingModel.editItem(rating, ID, UserName);
-            //return Redirect("ratinglist");
-            return RatingList();
+            return Redirect("/Rating/RatingList");
+            //return RatingList();
         }
     }
 }

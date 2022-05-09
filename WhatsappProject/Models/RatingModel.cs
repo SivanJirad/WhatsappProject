@@ -16,15 +16,6 @@
 
         public void editItem(Rating rating, int ID, string UserName)
         {
-            /*
-            rating.Time = DateTime.Now;
-            rating.ID = rating.setID();
-            using (var db = new ItemsContext())
-            {
-                db.Add(rating);
-                db.SaveChanges();
-            }
-            */
             
             using (var db = new ItemsContext())
             {
