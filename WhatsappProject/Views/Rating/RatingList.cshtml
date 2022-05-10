@@ -2,13 +2,20 @@
 @using WhatsappServer.Models;
 @model List<Rating>
 
-<h1 class=align-center>Rating List</h1>
 
 
-<div  id=listRating >
+    <h1 class=align-center>Rating List</h1>
+<div  id=listRating/>
+            <a asp-controller="Rating" asp-action="AddRating">Add Rating</a>
 
-<div class="list-group list-group-flush scroll">     
-        <a asp-controller="Rating" asp-action="AddRating">Add Rating</a>
+<form asp-action="RatingList" method="post">
+    <input name="query" id="search"/>
+    <input type="submit" />
+</form>
+
+
+
+<div  id="tbodyid" class="list-group list-group-flush scroll">
 
 @foreach (Rating rating in Model) 
 {
@@ -24,9 +31,14 @@
            <span class='showRating'> <a asp-controller="Rating" asp-action="RatingItem" asp-route-ID=@rating.ID class="btn btn-primary">Show Rating</a> </span>
             </div>
 }
+</div>
+</div>
 
-</div>
-</div>
+@section Scripts {
+<script src="~/js/search.js"></script>
+}
+
+
 
 
 

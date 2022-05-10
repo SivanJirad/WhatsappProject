@@ -14,25 +14,20 @@ namespace WhatsappServer.Controllers
             return View("RatingList", ratings);
         }
 
-        public IActionResult Search()
-        {
-            var ratings = ratingModel.getAllRatings();
-            return View("Search", ratings);
-        }
 
 
        
         [HttpPost]
-        public async Task<IActionResult> Search(string query)
+        public async Task<IActionResult> RatingList(string query)
             {
             
             List<Rating>? ratings = ratingModel.search(query);
-          return View("Search", ratings);
+          return View("RatingList", ratings);
 
         }
 
 
-        public async Task<IActionResult> Search2(string query)
+        public async Task<IActionResult> Search1(string query)
         {
 
             List<Rating>? ratings = ratingModel.search(query);
