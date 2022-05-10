@@ -13,7 +13,34 @@ namespace WhatsappServer.Controllers
             var ratings = ratingModel.getAllRatings();
             return View("RatingList", ratings);
         }
+
+        public IActionResult Search()
+        {
+            var ratings = ratingModel.getAllRatings();
+            return View("Search", ratings);
+        }
+
+
+       
+        [HttpPost]
+        public async Task<IActionResult> Search(string query)
+            {
+            
+            List<Rating>? ratings = ratingModel.search(query);
+          return View("Search", ratings);
+
+        }
+
+
+        public async Task<IActionResult> Search2(string query)
+        {
+
+            List<Rating>? ratings = ratingModel.search(query);
+            return PartialView(ratings);
+
+        }
         
+
 
         public IActionResult RatingItem(int ID)
         {

@@ -14,6 +14,18 @@
         }
 
 
+        public List<Rating> search(string query)
+        {
+            using (var db = new ItemsContext())
+            {
+
+               var items = db.Ratings.Where(rating => rating.UserName.Contains(query)).ToList();
+
+             return items;
+            }
+        }
+
+
         public void editItem(Rating rating, int ID, string UserName)
         {
             

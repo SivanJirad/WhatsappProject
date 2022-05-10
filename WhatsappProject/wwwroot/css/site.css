@@ -13,6 +13,10 @@ body {
     text-align: center;
 }
 
+.table > :not(caption) > * > * {
+    padding: 0px;
+}
+
 .align-start{
     text-align:start
 }
@@ -26,7 +30,11 @@ body {
     width:85vh;
 }
 
-#listRating{
+.list-group {
+    align-items: center;
+}
+
+#listRating {
     align-items: center;
 }
 .form-control {
