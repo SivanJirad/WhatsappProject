@@ -27,7 +27,7 @@ namespace WhatsappServer.Controllers
         }
 
 
-        public async Task<IActionResult> Search1(string query)
+        public async Task<IActionResult> Search(string query)
         {
 
             List<Rating>? ratings = ratingModel.search(query);
