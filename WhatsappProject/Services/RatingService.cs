@@ -1,11 +1,20 @@
-﻿namespace WhatsappServer.Models
+﻿
+
+using WhatsappServer.Models;
+
+
+namespace WhatsappServer.Services
 {
-    public class RatingModel
+    public class RatingService : IRatingService
     {
         public void addItem(Rating rating)
         {
             rating.Time = DateTime.Now;
             rating.ID = rating.setID();
+            if(rating.Review == null)
+            {
+                rating.Review = "No description";
+            }
             using (var db = new ItemsContext())
             {
                 db.Add(rating);
@@ -40,12 +49,11 @@
                     item.Time = DateTime.Now;
                     db.SaveChanges();
                 }
-            
-        }
-            
-            
-        }
 
+            }
+
+
+        }
 
         public Rating? getRating(int ID)
         {

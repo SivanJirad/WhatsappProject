@@ -1,6 +1,6 @@
 ﻿@using System.IO;
 @using WhatsappServer.Models;
-@model List<Rating>
+@model IEnumerable<Rating>
 
 
 
@@ -9,9 +9,9 @@
 {
             <div class="list-group-item list-group-item-action d-flex align-items-center">
             <span class="m-2 ms-3 content">
-                <div class='name'>@rating.UserName | Rate: @rating.Rate</div>
+                <div class='name'>@rating.UserName | @Html.DisplayNameFor(model => model.Rate): @rating.Rate</div>
             <div>
-                <p class="disciption"> description: @rating.Review </p>
+                <p class="disciption"> @Html.DisplayNameFor(model => model.Review): @rating.Review </p>
                 </div>
             </span> 
             
