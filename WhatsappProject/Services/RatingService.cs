@@ -57,6 +57,7 @@ namespace WhatsappServer.Services
 
         public Rating? getRating(int ID)
         {
+
             using (var db = new ItemsContext())
             {
                 Rating? item = db.Ratings.Find(ID);

@@ -9,10 +9,5 @@
         public List<Rating> AllRatings { get; set; }
 
         public double AverageRating { get; set; }   
-
-
-
-
-
     }
 }

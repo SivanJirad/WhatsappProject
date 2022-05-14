@@ -23,7 +23,8 @@ namespace WhatsappServer.Controllers
        
         [HttpPost]
         public async Task<IActionResult> RatingList(string query)
-            {
+         {
+
             
             List<Rating>? ratings = ratingService.search(query);
           return View("RatingList", ratings);
