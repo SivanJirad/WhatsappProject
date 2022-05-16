@@ -11,8 +11,8 @@ using WebWhatsappApi.Models;
 namespace WebWhatsappApi.Migrations
 {
     [DbContext(typeof(WhatsappContext))]
-    [Migration("20220514165156_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220516164450_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,14 +27,7 @@ namespace WebWhatsappApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Last")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("LastDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("ContactName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -44,15 +37,11 @@ namespace WebWhatsappApi.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UserName1")
-                        .IsRequired()
                         .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserName1");
+                    b.HasIndex("UserName");
 
                     b.ToTable("Contacts");
                 });
@@ -70,11 +59,11 @@ namespace WebWhatsappApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("Sent")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -111,7 +100,7 @@ namespace WebWhatsappApi.Migrations
                 {
                     b.HasOne("WebWhatsappApi.User", "User")
                         .WithMany("Contacts")
-                        .HasForeignKey("UserName1")
+                        .HasForeignKey("UserName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

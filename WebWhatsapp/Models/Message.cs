@@ -13,8 +13,7 @@ namespace WebWhatsappApi
         public string Content { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Created
-        { get; set; }
+        public DateTime Time { get; set; }
 
         public Boolean Sent { get; set; }
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebWhatsapp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -19,15 +19,21 @@ namespace WebWhatsapp.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public string Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return "hello";
         }
+
+
+        [HttpGet(Name = "Get2WeatherForecast")]
+        public string Get2()
+        {
+            return "hello2";
+        }
+
+
+
+
+
     }
 }

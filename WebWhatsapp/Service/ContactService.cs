@@ -10,15 +10,15 @@ namespace WebWhatsappApi.Service
 
 
 
-        public List<User> getAllContacts(string? UserName)
-        {
+        //public List<User> getAllContacts(string? UserName)
+        //{
 
-            using (var db = new WhatsappContext())
-            {
-                var items = db.Users.Include(x => x.Contacts).ThenInclude( m => m.UserName == UserName);
-                return (List<User>)items;
-            }
-        }
+        //    using (var db = new WhatsappContext())
+        //    {
+        //        var items = db.Users.Include(x => x.Contacts).ThenInclude( m => m.UserName == UserName);
+        //        return (List<User>)items;
+        //    }
+        //}
 
     }
 }

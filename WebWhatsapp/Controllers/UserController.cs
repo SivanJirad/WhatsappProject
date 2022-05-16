@@ -13,17 +13,16 @@ using WebWhatsappApi;
 using WebWhatsappApi.Service;
 
 
-namespace WebWhatsappApi.Controllers
+namespace WebWhatsapp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
+    [Route("api/[controller]/[action]")]
+    public class UserController : ControllerBase
     {
-        UsersService usersService;
+        UsersService usersService = new UsersService();
 
-
-        [HttpGet]
-        [Authorize]
+        //[Authorize]
+        [HttpGet(Name = "GetUser")]
         public IEnumerable<User> Get()
         {
             var list = usersService.getAllUsers();
@@ -31,30 +30,40 @@ namespace WebWhatsappApi.Controllers
 
         }
 
+        //public IActionResult Get()
+        //{
+        //    var list = usersService.getAllUsers();
+        //    Ok(list.ToList().Select(e => new { id = e.UserName, }));
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public User Login([Bind("UserName,Password,NickName,Image")] User user)
+        //}
+
+
+        public class UserLogin
         {
+            public string UserName { get; set; }
+            public string Password { get; set; }
+        }
+
+
+        [HttpPost(Name = "LoginUser")]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Login(UserLogin user)
+        {
+            Boolean singed = false;
             if (user != null)
             {
                 if (ModelState.IsValid)
                 {
-                    var myUser = usersService.checkIfInDB(user.UserName, user.Password);
-                    if (myUser == null)
-                    {
-
-                    }
-                    else
+                    User myUser = usersService.checkIfInDB(user.UserName, user.Password);
+                    if (myUser != null)
                     {
                         SignIn(myUser);
-
+                        singed = true;
                     }
-                    return myUser;
+       
                 }
             }
-
-            return null;
+            return Ok(singed);
         }
 
 
@@ -68,51 +77,20 @@ namespace WebWhatsappApi.Controllers
         //}
 
 
-        //[HttpPost]
+        [HttpPost(Name = "RegisterUser")]
         //[ValidateAntiForgeryToken]
-        //public User Register([Bind("UserName,Password,NickName,Image")] User user)
-        //{
-        //    if (user != null)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var userAddad = usersService.addUser(user);
-        //            if (!userAddad)
-        //            {
-        //            }
-        //            else
-        //            {
-        //                SignIn(user);
-        //            }
-        //        }
-        //    }
-        //    return user;
-        //}
+        public void Register(User user)
+        {
+            if (user != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    usersService.addUser(user);
+                    SignIn(user);
+                }
+            }
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public User Register([Bind("UserName,Password,NickName,Image")] User user)
-        //{
-        //    if (user != null)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var myUser = usersService.checkIfInDB(user.UserName, user.Password);
-        //            if (myUser == null)
-        //            {
-
-        //            }
-        //            else
-        //            {
-        //                SignIn(myUser);
-
-        //            }
-        //            return myUser;
-        //        }
-        //    }
-
-        //    return null;
-        //}
 
         private async void SignIn(User user)
         {
@@ -131,6 +109,9 @@ namespace WebWhatsappApi.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
         }
+
+
+
         //private readonly  _context;
 
         //public UsersController(WebWhatsappApiContext context)

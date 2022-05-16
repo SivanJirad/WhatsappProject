@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebWhatsappApi.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,24 +38,19 @@ namespace WebWhatsappApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
+                    ContactName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Server = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Last = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LastDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserName1 = table.Column<string>(type: "varchar(20)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserName = table.Column<string>(type: "longtext", nullable: false)
+                    UserName = table.Column<string>(type: "varchar(20)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contacts_Users_UserName1",
-                        column: x => x.UserName1,
+                        name: "FK_Contacts_Users_UserName",
+                        column: x => x.UserName,
                         principalTable: "Users",
                         principalColumn: "UserName",
                         onDelete: ReferentialAction.Cascade);
@@ -70,7 +65,7 @@ namespace WebWhatsappApi.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Content = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Created = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Sent = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ContactId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -87,9 +82,9 @@ namespace WebWhatsappApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_UserName1",
+                name: "IX_Contacts_UserName",
                 table: "Contacts",
-                column: "UserName1");
+                column: "UserName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_ContactId",
