@@ -5,6 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebWhatsappApi.Service
 {
+
+    public class ContactToAdd
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+
+        public string Server { get; set; }
+    }
+
     public class ContactService
     {
 
@@ -20,18 +29,28 @@ namespace WebWhatsappApi.Service
         //}
 
 
-        public Boolean AddToDB(string userId, Contact contact)
+
+
+        public Boolean AddToDB(string userId, ContactToAdd contact)
         {
             using (var db = new WhatsappContext())
             {
 
                 //var q = db.Users.Where(u => u.UserName == userId);
                 //var q = db.Users.Include(x => x.Contacts.Where(v => v.ContactUserName == contact.ContactUserName)).FirstOrDefaultAsync(u => u.UserName == userId);
-                var q = db.Users.Include(x => x.Contacts.Where(v => v.ContactUserName == contact.ContactUserName)).Where(u => u.UserName == userId);
+
+                var q = db.Users.Include(x => x.Contacts.Where(v => v.ContactUserName == contact.Id)).Where(u => u.UserName == userId);
 
                 if (!q.Any())
                 {
-                    db.Contacts.Add(contact);
+                    Contact cont = new Contact();
+                    cont.Id = db.Contacts.Max(x => x.Id) + 1;
+                    cont.ContactUserName = contact.Id;
+                    cont.ContactNickName = contact.Name;
+                    cont.Server = contact.Server;
+                    cont.User = db.Users.FirstOrDefault(x=> x.UserName == userId);
+
+                    db.Contacts.Add(cont);
                     db.SaveChanges();
                     return true;
                 }

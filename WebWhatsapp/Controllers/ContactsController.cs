@@ -37,23 +37,31 @@ namespace WebWhatsapp.Controllers
 
         //}
         */
+
+
+
+
+
+
         [Authorize]
         [HttpPost(Name = "AddContacts")]
         //[ValidateAntiForgeryToken]
-        public IActionResult Add(Contact contact)
+        public IActionResult AddContact(ContactToAdd contact)
         {
             if (contact != null)
             {
                 if (ModelState.IsValid)
                 {
+
                     //int id = HttpContext.Current.User.Identify.
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var identity = HttpContext.User.Identity as ClaimsIdentity;
+                    var userId = identity.FindFirst("UserId").Value;
+
 
                     Boolean isInDB = contactsService.AddToDB(userId, contact);
-                    if (isInDB == false)
+                    if (isInDB)
                     {
-                        usersService.addUser(user);
-                        return Ok(CreateToken(user.UserName));
+                        return Ok(true);
                     }
                 }
             }
