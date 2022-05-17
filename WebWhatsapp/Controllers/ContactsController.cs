@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using WebWhatsappApi;
 using WebWhatsappApi.Service;
 
-/*
 
 namespace WebWhatsapp.Controllers
 {
@@ -20,6 +19,8 @@ namespace WebWhatsapp.Controllers
     [Route("api/[controller]")]
     public class ContactsController : ControllerBase
     {
+        ContactService contactsService = new ContactService();
+
         /*
         //ContactService usersService = new ContactService();
 
@@ -35,6 +36,7 @@ namespace WebWhatsapp.Controllers
         //}
 
         //}
+        */
         [Authorize]
         [HttpPost(Name = "AddContacts")]
         //[ValidateAntiForgeryToken]
@@ -46,14 +48,13 @@ namespace WebWhatsapp.Controllers
                 {
                     //int id = HttpContext.Current.User.Identify.
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    /*
-                     myUser = usersService.checkIfInDB(user.UserName, user.Password);
-                    if (myUser != null)
+
+                    Boolean isInDB = contactsService.AddToDB(userId, contact);
+                    if (isInDB == false)
                     {
+                        usersService.addUser(user);
                         return Ok(CreateToken(user.UserName));
                     }
-                    
-                    return Ok(true);
                 }
             }
             return Ok(false);
@@ -63,5 +64,5 @@ namespace WebWhatsapp.Controllers
 }
 
 
-*/
+
 

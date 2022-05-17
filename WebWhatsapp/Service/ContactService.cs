@@ -9,7 +9,6 @@ namespace WebWhatsappApi.Service
     {
 
 
-
         //public List<User> getAllContacts(string? UserName)
         //{
 
@@ -20,21 +19,25 @@ namespace WebWhatsappApi.Service
         //    }
         //}
 
-        /*
-        public Boolean addContact(Contact contact)
+
+        public Boolean AddToDB(string userId, Contact contact)
         {
             using (var db = new WhatsappContext())
             {
-                var q = db.Contacts.Where(u => u.UserName == user.UserName);
+
+                //var q = db.Users.Where(u => u.UserName == userId);
+                //var q = db.Users.Include(x => x.Contacts.Where(v => v.ContactUserName == contact.ContactUserName)).FirstOrDefaultAsync(u => u.UserName == userId);
+                var q = db.Users.Include(x => x.Contacts.Where(v => v.ContactUserName == contact.ContactUserName)).Where(u => u.UserName == userId);
+
                 if (!q.Any())
                 {
-                    db.Users.Add(user);
+                    db.Contacts.Add(contact);
                     db.SaveChanges();
                     return true;
                 }
             }
             return false;
         }
-        */
+        
     }
 }
