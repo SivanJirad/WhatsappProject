@@ -20,5 +20,21 @@ namespace WebWhatsappApi.Service
         //    }
         //}
 
+        /*
+        public Boolean addContact(Contact contact)
+        {
+            using (var db = new WhatsappContext())
+            {
+                var q = db.Contacts.Where(u => u.UserName == user.UserName);
+                if (!q.Any())
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+        */
     }
 }

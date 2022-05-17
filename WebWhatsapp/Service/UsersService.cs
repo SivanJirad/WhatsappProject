@@ -24,6 +24,19 @@ namespace WebWhatsappApi.Service
 
 
 
+        public Boolean checkIfNameExsit(string UserName)
+            {
+            using (var db = new WhatsappContext())
+            {
+                var q = db.Users.Where(u => u.UserName == UserName);
+                if (q.Any())
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         public Boolean addUser(User user)
         {
             using (var db = new WhatsappContext())

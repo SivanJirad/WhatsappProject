@@ -25,7 +25,11 @@ namespace WebWhatsappApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ContactName")
+                    b.Property<string>("ContactNickName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ContactUserName")
                         .IsRequired()
                         .HasColumnType("longtext");
 

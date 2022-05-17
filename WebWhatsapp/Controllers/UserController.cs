@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebWhatsappApi;
 using WebWhatsappApi.Service;
 
@@ -19,9 +22,23 @@ namespace WebWhatsapp.Controllers
     [Route("api/[controller]/[action]")]
     public class UserController : ControllerBase
     {
-        UsersService usersService = new UsersService();
 
-        //[Authorize]
+        UsersService usersService = new UsersService();
+        public class UserLogin
+        {
+            public string UserName { get; set; }
+            public string Password { get; set; }
+        }
+
+
+        public IConfiguration _configuration;
+
+        public UserController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        [Authorize]
         [HttpGet(Name = "GetUser")]
         public IEnumerable<User> Get()
         {
@@ -37,14 +54,7 @@ namespace WebWhatsapp.Controllers
 
         //}
 
-
-        public class UserLogin
-        {
-            public string UserName { get; set; }
-            public string Password { get; set; }
-        }
-
-
+        
         [HttpPost(Name = "LoginUser")]
         //[ValidateAntiForgeryToken]
         public IActionResult Login(UserLogin user)
@@ -57,14 +67,38 @@ namespace WebWhatsapp.Controllers
                     User myUser = usersService.checkIfInDB(user.UserName, user.Password);
                     if (myUser != null)
                     {
-                        SignIn(myUser);
-                        singed = true;
+                        return Ok(CreateToken(user.UserName));
                     }
        
                 }
             }
-            return Ok(singed);
+            return Ok(false);
         }
+        
+        
+        private string CreateToken(string userName)
+        {
+            var claims = new[]
+                        {
+                            new Claim(JwtRegisteredClaimNames.Sub, _configuration["JWTParams:Subject"]),
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                            new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                            new Claim("UserId", userName),
+                        };
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTParams:SecretKey"]));
+            var mac = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _configuration["JWTParams:Issuer"],
+                _configuration["JWTParams:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(20),
+                signingCredentials: mac);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        
+
 
 
 
@@ -76,39 +110,46 @@ namespace WebWhatsapp.Controllers
         //    HttpContext.SignOutAsync();
         //}
 
-
+        
         [HttpPost(Name = "RegisterUser")]
         //[ValidateAntiForgeryToken]
-        public void Register(User user)
+        public IActionResult Register(User user)
         {
+            Boolean register = false;
             if (user != null)
             {
                 if (ModelState.IsValid)
                 {
-                    usersService.addUser(user);
-                    SignIn(user);
+                    Boolean isInDB = usersService.checkIfNameExsit(user.UserName);
+                    if (isInDB == false)
+                    {
+                        usersService.addUser(user);
+                        return Ok(CreateToken(user.UserName));
+                    }
+
                 }
             }
+            return Ok(register);
         }
+        
+
+        //private async void SignIn(User user)
+        //{
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Name, user.UserName)
+        //    };
+        //    var claimsIdentity = new ClaimsIdentity(
+        //        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        //    var authProperties = new AuthenticationProperties { };
 
 
-        private async void SignIn(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var authProperties = new AuthenticationProperties { };
-
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
-        }
+        //    await HttpContext.SignInAsync(
+        //        CookieAuthenticationDefaults.AuthenticationScheme,
+        //        new ClaimsPrincipal(claimsIdentity),
+        //        authProperties);
+        //}
 
 
 

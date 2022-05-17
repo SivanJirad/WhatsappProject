@@ -11,8 +11,8 @@ using WebWhatsappApi.Models;
 namespace WebWhatsappApi.Migrations
 {
     [DbContext(typeof(WhatsappContext))]
-    [Migration("20220516164450_initialMigration")]
-    partial class initialMigration
+    [Migration("20220517112935_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,11 @@ namespace WebWhatsappApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ContactName")
+                    b.Property<string>("ContactNickName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ContactUserName")
                         .IsRequired()
                         .HasColumnType("longtext");
 

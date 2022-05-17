@@ -1,22 +1,67 @@
-﻿
-//using Microsoft.AspNetCore.Mvc;
-//using WebWhatsappApi.Service;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using WebWhatsappApi;
+using WebWhatsappApi.Service;
+
+/*
+
+namespace WebWhatsapp.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ContactsController : ControllerBase
+    {
+        /*
+        //ContactService usersService = new ContactService();
+
+        //[HttpGet(Name = "GetContacts")]
+        //public IEnumerable<Contact> Get()
+        //{
+        //    //var list = usersService.getAllUsers();
+        //    //return list.ToList();
+
+        //    //var list = contactservice.getallcontacts("hello");
+        //    //return list.toarray();
+
+        //}
+
+        //}
+        [Authorize]
+        [HttpPost(Name = "AddContacts")]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Add(Contact contact)
+        {
+            if (contact != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    //int id = HttpContext.Current.User.Identify.
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    /*
+                     myUser = usersService.checkIfInDB(user.UserName, user.Password);
+                    if (myUser != null)
+                    {
+                        return Ok(CreateToken(user.UserName));
+                    }
+                    
+                    return Ok(true);
+                }
+            }
+            return Ok(false);
+        }
+
+    }
+}
 
 
-//namespace WebWhatsapp.Controllers
-//{
-//    [ApiController]
-//    [Route("[controller]")]
-//    public class ContactController : ControllerBase
-//    {
-//        ContactService contactService;
+*/
 
-//        [HttpGet]
-//        public IEnumerable<Object> Get()
-//        {
-//            var list = contactService.getAllContacts("hello");
-//            return list.ToArray();
-
-//        }
-//    }
-//}

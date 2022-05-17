@@ -10,7 +10,10 @@ namespace WebWhatsappApi
         public int Id { get; set; }
 
 
-        public string ContactName { get; set; }
+        public string ContactUserName { get; set; }
+
+
+        public string ContactNickName { get; set; }
 
         public string Server { get; set; }
 
