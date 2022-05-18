@@ -21,26 +21,17 @@ namespace WebWhatsapp.Controllers
     {
         ContactService contactsService = new ContactService();
 
-        /*
-        //ContactService usersService = new ContactService();
-
-        //[HttpGet(Name = "GetContacts")]
-        //public IEnumerable<Contact> Get()
-        //{
-        //    //var list = usersService.getAllUsers();
-        //    //return list.ToList();
-
-        //    //var list = contactservice.getallcontacts("hello");
-        //    //return list.toarray();
-
-        //}
-
-        //}
-        */
 
 
 
-
+        [Authorize]
+        [HttpGet(Name = "GetContacts")]
+        public IEnumerable<ContactsGet> Get()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userId = identity.FindFirst("UserId").Value;
+            return contactsService.getAllContacts(userId);
+        }
 
 
         [Authorize]
@@ -52,11 +43,9 @@ namespace WebWhatsapp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
                     //int id = HttpContext.Current.User.Identify.
                     var identity = HttpContext.User.Identity as ClaimsIdentity;
                     var userId = identity.FindFirst("UserId").Value;
-
 
                     Boolean isInDB = contactsService.AddToDB(userId, contact);
                     if (isInDB)
