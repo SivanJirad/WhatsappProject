@@ -2,6 +2,7 @@
 using WebWhatsappApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace WebWhatsappApi.Service
 {
@@ -20,7 +21,13 @@ namespace WebWhatsappApi.Service
         public string Name { get; set; }
         public string Server { get; set; }
         public string Last { get; set; }
-        public string Date { get; set; }
+        public string LastDate { get; set; }
+    }
+
+    public class Update
+    {
+        public string Name { get; set; }
+        public string Server { get; set; }
     }
 
 
@@ -38,7 +45,7 @@ namespace WebWhatsappApi.Service
         //    }
         //}
 
-        
+
 
         public List<ContactsGet> getAllContacts(string userId)
         {
@@ -46,23 +53,18 @@ namespace WebWhatsappApi.Service
             {
                 var q = db.Users.
                     Where(u => u.UserName == userId).    // only if you don't want all elements of Table1 
-                    Select(u => new
-                    {
-                        //UserName = u.UserName,
-                        Contact = u.Contacts.
+                    Select(u => u.Contacts.
                         Select(v => new ContactsGet
                         {
-                            Id = v.ContactUserName, 
+                            Id = v.ContactUserName,
                             Name = v.ContactNickName,
-                            Server = v.Server,  
+                            Server = v.Server,
                             Last = "hi",
-                            Date = "bi"
-                        }).ToList(),
+                            LastDate = "bi"
+                        }).ToList()
 
-
-                    });
-
-                var items = q.ToList()[0].Contact;
+                    ).ToList();
+                var items = q[0];
                 return items;
             }
         }
@@ -93,9 +95,9 @@ namespace WebWhatsappApi.Service
                     });
 
                 var b = q.ToList()[0].Contact;
-           
-        
-                    if (b.Count == 0)
+
+
+                if (b.Count == 0)
                 {
                     Contact cont = new Contact();
                     try
@@ -111,7 +113,7 @@ namespace WebWhatsappApi.Service
                     cont.ContactUserName = contact.Id;
                     cont.ContactNickName = contact.Name;
                     cont.Server = contact.Server;
-                    cont.User = db.Users.FirstOrDefault(x=> x.UserName == userId);
+                    cont.User = db.Users.FirstOrDefault(x => x.UserName == userId);
 
                     db.Contacts.Add(cont);
                     db.SaveChanges();
@@ -120,6 +122,78 @@ namespace WebWhatsappApi.Service
             }
             return false;
         }
-        
+
+
+
+
+
+
+
+        public async Task<Contact> GetAContact(string id, string userId)
+        {
+            using (var db = new WhatsappContext())
+            {
+                var q = await db.Users.Where(u => u.UserName == userId).
+                Select(user => user.Contacts.ToList()).ToListAsync();
+                if (q.Count == 0)
+                {
+                    return null;
+                }
+
+                return q[0].Find(contact => contact.ContactUserName == id);
+            }
+        }
+
+        public async Task<Boolean> DeleteAContact(string id, string userId)
+        {
+            using (var db = new WhatsappContext())
+            {
+                var q = await db.Users.Where(u => u.UserName == userId).
+                Select(user => user.Contacts.ToList()).ToListAsync();
+                if (q.Count == 0)
+                {
+                    return false;
+                }
+
+                Contact item = q[0].Find(contact => contact.ContactUserName == id);
+
+                if(item!= null)
+                {
+                    db.Contacts.Remove(item);
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+
+
+
+
+        public async Task<Boolean> EditAContact(string id, string userId, Update body)
+        {
+            body.ToString();
+            using (var db = new WhatsappContext())
+            {
+                var q = await db.Users.Where(u => u.UserName == userId).
+                Select(user => user.Contacts.ToList()).ToListAsync();
+                if (q.Count == 0)
+                {
+                    return false;
+                }
+
+                Contact item = q[0].Find(contact => contact.ContactUserName == id);
+
+                if (item != null)
+                {
+                    item.Server = body.Server;
+                    item.ContactNickName = body.Name;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
