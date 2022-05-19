@@ -18,7 +18,7 @@ namespace WebWhatsappApi.Controllers
 {
     [ApiController]
     [Route("api/contacts/{id}/[controller]")]
-     //[Route("api/[controller]")]
+    //[Route("api/[controller]")]
 
 
     public class MessagesController : Controller
@@ -36,14 +36,24 @@ namespace WebWhatsappApi.Controllers
         [Authorize]
         [HttpGet(Name = "GetMessages")]
         //public IEnumerable<MessagesGet> Get()
-        public void Get(string nameContact)
+        public List<MessagesGet> Get(string id)
 
         {
             var userId = getUserId();
-           
-            //return messageService.getAllMessages(userId);
+            //messageService.getAllMessages(userId, id);
+            return messageService.getAllMessages(userId, id);
         }
 
+
+        [Authorize]
+        [HttpGet("{id2}")]
+        public MessagesGet GetSpecificMessage(string id, int id2)
+
+        {
+            var userId = getUserId();
+            return messageService.SpecificMessage(userId, id, id2);
+        }
+    
 
         [Authorize]
         [HttpPost(Name = "NewMessages")]
@@ -58,6 +68,27 @@ namespace WebWhatsappApi.Controllers
                 messageService.AddToDB(userId, message, id);
             }
         }
+
+
+        [Authorize]
+        [HttpDelete("{id2}")]
+        public void DeleteMessage(int id2)
+        {       
+            messageService.DeleteMessage(id2);
+        }
+
+
+        //עובד רק בשרת, לא הצלחתי לקשר לדפדפן
+        [Authorize]
+        [HttpPut("{id2}")]
+        public void UpdateMessage(int id2, MessagePost message)
+        {
+            messageService.UpdateMessage(id2, message);
+        }
+
+
+
+
     }
 }
 
