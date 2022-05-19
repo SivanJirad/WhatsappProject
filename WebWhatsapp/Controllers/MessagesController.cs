@@ -16,9 +16,16 @@ using WebWhatsappApi.Service;
 
 namespace WebWhatsappApi.Controllers
 {
+
+
     [ApiController]
     [Route("api/contacts/{id}/[controller]")]
+    //[Route("api/contacts/{id}/[controller]{id2}")]
+
     //[Route("api/[controller]")]
+
+
+
 
 
     public class MessagesController : Controller
@@ -78,10 +85,9 @@ namespace WebWhatsappApi.Controllers
         }
 
 
-        //עובד רק בשרת, לא הצלחתי לקשר לדפדפן
         [Authorize]
         [HttpPut("{id2}")]
-        public void UpdateMessage(int id2, MessagePost message)
+        public void UpdateMessage([FromRoute]int id2, [FromBody]MessagePost message)
         {
             messageService.UpdateMessage(id2, message);
         }
