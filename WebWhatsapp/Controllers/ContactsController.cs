@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebWhatsappApi;
 using WebWhatsappApi.Service;
-
+using System.Text.Json;
 
 namespace WebWhatsapp.Controllers
 {
@@ -21,16 +21,71 @@ namespace WebWhatsapp.Controllers
     {
         ContactService contactsService = new ContactService();
 
+        //[Authorize]
+        //[HttpGet(Name = "GetContacts")]
+        //public IEnumerable<ContactsGet> Get()
+        //{
+        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //    var userId = identity.FindFirst("UserId").Value;
+        //    return contactsService.getAllContacts(userId);
+        //}
 
 
 
         [Authorize]
         [HttpGet(Name = "GetContacts")]
-        public IEnumerable<ContactsGet> Get()
+        public IActionResult GetAll()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var userId = identity.FindFirst("UserId").Value;
-            return contactsService.getAllContacts(userId);
+            return Ok(contactsService.getAllContacts(userId));
+        }
+
+
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userId = identity.FindFirst("UserId").Value;
+            Contact contact = await contactsService.GetAContact(id, userId);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+            return Ok(new { id = contact.ContactUserName, name = contact.ContactUserName, server = contact.Server, last = "hi", lastdate = "bye" });
+        }
+
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteById(string id)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userId = identity.FindFirst("UserId").Value;
+            Boolean deleted = await contactsService.DeleteAContact(id, userId);
+            if (deleted)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+
+
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutById([FromRoute] string id, [FromBody] Update body)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userId = identity.FindFirst("UserId").Value;
+            Boolean changed = await contactsService.EditAContact(id, userId, body);
+            if (changed)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
 
