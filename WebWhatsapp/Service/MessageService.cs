@@ -20,6 +20,11 @@ namespace WebWhatsappApi.Service
         public DateTime Created { get; set; }
         public Boolean Sent { get; set; }
     }
+    public class PostModel
+    {
+        public int ID { get; set; }
+        public MessagePost message { get; set; }
+    }
 
     public class MessageService
     {
@@ -116,26 +121,6 @@ namespace WebWhatsappApi.Service
 
 
 
-
-
-
-        /*
-         using (var db = new ItemsContext())
-            {
-                Rating? item = db.Ratings.Find(ID);
-                if (item != null)
-                {
-                    item.UserName = UserName;
-                    item.Rate = rating.Rate;
-                    item.Review=rating.Review;
-                    item.Time = DateTime.Now;
-                    db.SaveChanges();
-                }
-
-            }
-*/
-
-
         public void UpdateMessage(int idMessage, MessagePost Updatemessage)
         {
             using (var db = new WhatsappContext())
@@ -151,8 +136,8 @@ namespace WebWhatsappApi.Service
             }
 
         }
-
-
+        
+        
     }
 }
 
