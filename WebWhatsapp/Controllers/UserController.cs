@@ -92,25 +92,19 @@ namespace WebWhatsapp.Controllers
                 _configuration["JWTParams:Issuer"],
                 _configuration["JWTParams:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(20),
+                expires: DateTime.UtcNow.AddMinutes(50),
                 signingCredentials: mac);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        
+
+        [HttpPost(Name = "LogoutUser")]
+        public void Logout()
+        {
+            HttpContext.SignOutAsync();
+        }
 
 
-
-
-
-
-
-        //public void Logout()
-        //{
-        //    HttpContext.SignOutAsync();
-        //}
-
-        
         [HttpPost(Name = "RegisterUser")]
         //[ValidateAntiForgeryToken]
         public IActionResult Register(User user)

@@ -64,7 +64,7 @@ namespace WebWhatsappApi.Controllers
         [Authorize]
         [HttpPost(Name = "NewMessages")]
         //[ValidateAntiForgeryToken]
-        public void New(string id, MessagePost message)
+        public IActionResult New(string id, MessagePost message)
 
         {
             if (message != null && ModelState.IsValid)
@@ -72,7 +72,9 @@ namespace WebWhatsappApi.Controllers
                 var userId = getUserId();
                 //id is name of contact
                 messageService.AddToDB(userId, message, id);
+                return Ok();
             }
+            return BadRequest();
         }
 
 
@@ -90,8 +92,6 @@ namespace WebWhatsappApi.Controllers
         {
             messageService.UpdateMessage(id2, message);
         }
-
-
 
 
     }

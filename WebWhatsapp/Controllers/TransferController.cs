@@ -14,14 +14,15 @@ namespace WebWhatsappApi.Controllers
     {
         TransferService transferService = new TransferService();
 
-        [Authorize]
         [HttpPost(Name = "AddMessageTransfer")]
-        public void AddMessage(Transfer transfer)
+        public IActionResult AddMessage(Transfer transfer)
         {
             if (transfer != null && ModelState.IsValid)
             {
                 transferService.AddToDB(transfer);
+                return Ok();
             }
+            return BadRequest();
         }
     }
 }

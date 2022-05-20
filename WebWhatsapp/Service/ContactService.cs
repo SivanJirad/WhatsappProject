@@ -21,7 +21,7 @@ namespace WebWhatsappApi.Service
         public string Name { get; set; }
         public string Server { get; set; }
         public string Last { get; set; }
-        public string LastDate { get; set; }
+        public string Lastdate { get; set; }
     }
 
     public class Update
@@ -91,7 +91,7 @@ namespace WebWhatsappApi.Service
                         Name = i.ContactNickName,
                         Server = i.Server,
                         Last = message.Last,
-                        LastDate = message.LastTime
+                        Lastdate = message.LastTime
                     });
                   }
                 return newItems;
@@ -183,10 +183,8 @@ namespace WebWhatsappApi.Service
                 Name = c.ContactNickName,
                 Server = c.Server,
                 Last = m.Last,
-                LastDate = m.LastTime
+                Lastdate = m.LastTime
             };
-
-        
         }
 
 

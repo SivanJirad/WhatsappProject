@@ -36,7 +36,7 @@ namespace WebWhatsapp.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetById([FromRoute] string id)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var userId = identity.FindFirst("UserId").Value;

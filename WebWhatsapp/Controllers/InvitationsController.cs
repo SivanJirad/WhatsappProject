@@ -9,20 +9,20 @@ namespace WebWhatsappApi.Controllers
     public class InvitationsController : Controller
     {
         ContactService contactsService = new ContactService();
+        
         [HttpPost]
-        public async Task<IActionResult> Invitations(Invitation invitation)
+        public IActionResult Invitations(Invitation invitation)
         {
             ContactToAdd contactToAdd = new ContactToAdd();
-            contactToAdd.Id = invitation.to;
+            contactToAdd.Id = invitation.from;
             contactToAdd.Server = invitation.server;
 
             // I didn't get the nick name!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            contactToAdd.Name = invitation.to;
+            contactToAdd.Name = invitation.from;
 
-            string userId = invitation.from;
+            string userId = invitation.to;
 
-
-            Boolean added =  contactsService.AddToDB(userId, contactToAdd);
+            Boolean added = contactsService.AddToDB(userId, contactToAdd);
 
             if (added)
             {
