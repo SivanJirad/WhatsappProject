@@ -18,8 +18,6 @@ namespace WebWhatsappApi.Controllers
 {
     [ApiController]
     [Route("api/contacts/{id}/[controller]")]
-    //[Route("api/[controller]")]
-
 
     public class MessagesController : Controller
     {
@@ -36,22 +34,27 @@ namespace WebWhatsappApi.Controllers
         [Authorize]
         [HttpGet(Name = "GetMessages")]
         //public IEnumerable<MessagesGet> Get()
-        public List<MessagesGet> Get(string id)
+        public IActionResult Get(string id)
 
         {
             var userId = getUserId();
             //messageService.getAllMessages(userId, id);
-            return messageService.getAllMessages(userId, id);
+            return Ok(messageService.getAllMessages(userId, id));
         }
 
 
         [Authorize]
         [HttpGet("{id2}")]
-        public MessagesGet GetSpecificMessage(string id, int id2)
+        public IActionResult GetSpecificMessage(string id, int id2)
 
         {
             var userId = getUserId();
-            return messageService.SpecificMessage(userId, id, id2);
+            MessagesGet m = messageService.SpecificMessage(userId, id, id2);
+            if(m == null)
+            {
+                return NotFound();
+            }
+            return Ok(m);
         }
     
 

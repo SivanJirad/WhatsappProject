@@ -21,16 +21,6 @@ namespace WebWhatsapp.Controllers
     {
         ContactService contactsService = new ContactService();
 
-        //[Authorize]
-        //[HttpGet(Name = "GetContacts")]
-        //public IEnumerable<ContactsGet> Get()
-        //{
-        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
-        //    var userId = identity.FindFirst("UserId").Value;
-        //    return contactsService.getAllContacts(userId);
-        //}
-
-
 
         [Authorize]
         [HttpGet(Name = "GetContacts")]
@@ -38,6 +28,7 @@ namespace WebWhatsapp.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var userId = identity.FindFirst("UserId").Value;
+            List<ContactsGet> c = contactsService.getAllContacts(userId);
             return Ok(contactsService.getAllContacts(userId));
         }
 
@@ -49,12 +40,12 @@ namespace WebWhatsapp.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var userId = identity.FindFirst("UserId").Value;
-            Contact contact = await contactsService.GetAContact(id, userId);
-            if (contact == null)
+            ContactsGet cont = await contactsService.GetAContact(id, userId);
+            if (cont == null)
             {
                 return NotFound();
             }
-            return Ok(new { id = contact.ContactUserName, name = contact.ContactUserName, server = contact.Server, last = "hi", lastdate = "bye" });
+            return Ok(cont);
         }
 
 
@@ -71,6 +62,7 @@ namespace WebWhatsapp.Controllers
             }
             return NotFound();
         }
+
 
 
 
@@ -105,11 +97,11 @@ namespace WebWhatsapp.Controllers
                     Boolean isInDB = contactsService.AddToDB(userId, contact);
                     if (isInDB)
                     {
-                        return Ok(true);
+                        return Ok();
                     }
                 }
             }
-            return Ok(false);
+            return BadRequest();
         }
 
     }

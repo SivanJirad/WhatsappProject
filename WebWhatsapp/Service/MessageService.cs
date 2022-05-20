@@ -51,9 +51,6 @@ namespace WebWhatsappApi.Service
                 var items = q.ToList()[0];
                 return items;
             }
-
-
-
         }
 
 
