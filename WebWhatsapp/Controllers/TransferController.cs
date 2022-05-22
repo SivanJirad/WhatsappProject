@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using WebWhatsappApi.Service;
+using WebWhatsappApi.Models;
 
 
 namespace WebWhatsappApi.Controllers

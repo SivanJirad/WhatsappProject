@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebWhatsappApi.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Allow All",
@@ -50,8 +52,9 @@ builder.Services.AddCors(options =>
         });
 });
 
-var app = builder.Build();
+builder.Services.AddSignalR();
 
+var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
@@ -67,5 +70,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseRouting();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/hubs/chat");
+
+});
 app.Run();
