@@ -98,11 +98,11 @@ namespace WebWhatsapp.Controllers
         }
 
 
-        [HttpPost(Name = "LogoutUser")]
-        public void Logout()
-        {
-            HttpContext.SignOutAsync();
-        }
+        //[HttpPost(Name = "LogoutUser")]
+        //public void Logout()
+        //{
+        //    HttpContext.SignOutAsync();
+        //}
 
 
         [HttpPost(Name = "RegisterUser")]
