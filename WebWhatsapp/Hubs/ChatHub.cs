@@ -22,9 +22,11 @@ namespace WebWhatsappApi.Hubs
         public async Task SendMessage(Transfer message)
         {
             var key = "user: " + message.To;
+            var a = (string)htUsers_ConIds[key];
+            if ((string)htUsers_ConIds[key] != null){
+                await Clients.Client((string)htUsers_ConIds[key]).ReceiveMessage(message);
 
-            var a = (string)htUsers_ConIds[message.To];
-            await Clients.Client((string)htUsers_ConIds[key]).ReceiveMessage(message);
+            }
 
             //await Clients.All.ReceiveMessage(message);
         }
