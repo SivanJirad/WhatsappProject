@@ -28,7 +28,7 @@ namespace WhatsappServer.Services
             using (var db = new ItemsContext())
             {
 
-               var items = db.Ratings.Where(rating => rating.UserName.Contains(query)).ToList();
+               var items = db.Ratings.Where(rating => rating.Review.Contains(query)).ToList();
 
              return items;
             }
