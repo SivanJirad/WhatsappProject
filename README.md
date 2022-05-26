@@ -1,6 +1,9 @@
 # Whatsapp Server:
 
 The server of our message app.<br/>
+Developed by Sivan Jhirad & Ofri Zangi. <br/>
+
+
 It includes 2 projects:
 1. WebWhatsappApi - the server of the whatsapp message app.
 2. WhatsappProject - the server of the rating app.
