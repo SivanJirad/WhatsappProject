@@ -104,13 +104,8 @@ namespace WebWhatsappApi.Service
         {
             using (var db = new WhatsappContext())
             {
-
-                //var q = db.Users.Where(u => u.UserName == userId);
-                //var q = db.Users.Include(x => x.Contacts.Where(v => v.ContactUserName == contact.ContactUserName)).FirstOrDefaultAsync(u => u.UserName == userId);
-
-
                 var q = db.Users.
-                    Where(u => u.UserName == userId).    // only if you don't want all elements of Table1 
+                    Where(u => u.UserName == userId).
                     Select(u => new
                     {
                         //UserName = u.UserName,
@@ -139,7 +134,14 @@ namespace WebWhatsappApi.Service
 
                     }
                     cont.ContactUserName = contact.Id;
-                    cont.ContactNickName = contact.Name;
+                    if(contact.Name == "")
+                    {
+                        cont.ContactNickName = contact.Id;
+                    }
+                    else
+                    {
+                        cont.ContactNickName = contact.Name;
+                    }
                     cont.Server = contact.Server;
                     cont.User = db.Users.FirstOrDefault(x => x.UserName == userId);
 

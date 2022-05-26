@@ -66,6 +66,22 @@ namespace WebWhatsappApi.Service
             return m;
         }
 
+        public async Task<Contact> FindContact(string userId, string id)
+        {
+            using (var db = new WhatsappContext())
+            {
+                var q = await db.Users.Where(u => u.UserName == userId).
+                Select(user => user.Contacts.ToList()).ToListAsync();
+                if (q.Count == 0)
+                {
+                    return null;
+                }
+
+                return q[0].Find(contact => contact.ContactUserName == id);
+            }
+
+        }
+
 
 
         public void AddToDB(string userId, MessagePost message, string contactName)

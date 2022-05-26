@@ -37,11 +37,11 @@ namespace WebWhatsappApi.Controllers
         [Authorize]
         [HttpGet(Name = "GetMessages")]
         //public IEnumerable<MessagesGet> Get()
-        public IActionResult Get(string id)
-
+        public async Task<IActionResult> Get(string id)
         {
             var userId = getUserId();
-            //messageService.getAllMessages(userId, id);
+            Contact c = await messageService.FindContact(userId,id);
+            if (c == null) return NotFound();
             return Ok(messageService.getAllMessages(userId, id));
         }
 
@@ -49,7 +49,6 @@ namespace WebWhatsappApi.Controllers
         [Authorize]
         [HttpGet("{id2}")]
         public IActionResult GetSpecificMessage(string id, int id2)
-
         {
             var userId = getUserId();
             MessagesGet m = messageService.SpecificMessage(userId, id, id2);
