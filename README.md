@@ -11,8 +11,8 @@ It includes 2 projects:
 ## Set Up:
 This app uses **MariaDB**. <br/>
 We have **2** databases:
-1. whatsapp - is defined in the class WhatsappContext in the project WebwhatsappApi
-2. items -  is defined in the class ItemsContext in the project WhatsappProject
+1. whatsapp - is defined in the class WhatsappContext in the project WebwhatsappApi (used for the message app).
+2. items -  is defined in the class ItemsContext in the project WhatsappProject (used for the rating page). <br/>
 The password in the connection string of both of them is - 123456.
 
 ## How To Run?
