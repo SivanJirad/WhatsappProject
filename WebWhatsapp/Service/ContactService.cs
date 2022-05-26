@@ -39,39 +39,6 @@ namespace WebWhatsappApi.Service
 
     public class ContactService
     {
-
-
-        //public List<ContactsGet> getAllContacts(string userId)
-        //{
-        //    using (var db = new WhatsappContext())
-        //    {
-        //        var q =  db.Users.
-        //            Where(u => u.UserName == userId).    // only if you don't want all elements of Table1 
-        //            Select(u => u.Contacts.
-        //                Select(v => 
-                        
-        //                new ContactsGet
-        //                {
-        //                    Id = v.ContactUserName,
-        //                    Name = v.ContactNickName,
-        //                    Server = v.Server,
-        //                    Last =  null,
-        //                    LastDate = null
-        //                }).ToList()
-
-        //            ).ToList();
-
-
-        //        var items = q[0];
-
-        //        foreach (ContactsGet i in items)
-        //        {
-        //            LastMessage message = GetLastMessage(i, userId);
-        //        }
-        //        return items;
-        //    }
-        //}
-
         public List<ContactsGet> getAllContacts(string userId)
         {
             using (var db = new WhatsappContext())
@@ -152,10 +119,6 @@ namespace WebWhatsappApi.Service
             }
             return false;
         }
-
-
-
-
 
 
         private async Task<Contact> FindContact(string userId, string id)

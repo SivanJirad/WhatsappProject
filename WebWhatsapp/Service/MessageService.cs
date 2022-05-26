@@ -34,11 +34,6 @@ namespace WebWhatsappApi.Service
 
             using (var db = new WhatsappContext())
             {
-
-                //var a = db.Contacts.FirstOrDefault(x => x.User.UserName == userId && x.ContactUserName == contactName);
-                //var contactId = a.Id;
-                //return db.Messages.Where(x => x.Contact.Id == contactId).ToList();
-
                 var q = db.Contacts.
                     Where(x => x.User.UserName == userId && x.ContactUserName == contactName).
                     Select(u => u.Messages.
@@ -88,9 +83,6 @@ namespace WebWhatsappApi.Service
         {
             using (var db = new WhatsappContext())
             {
-                //var y = db.Users.FirstOrDefault(x => x.UserName == userId);
-                //var d = db.Contacts.FirstOrDefault(x => x.ContactUserName == contactName);
-
                 var a = db.Contacts.FirstOrDefault(x => x.User.UserName == userId && x.ContactUserName == contactName);
                 Message newMessage = new Message();
                 try
@@ -131,10 +123,6 @@ namespace WebWhatsappApi.Service
             }
 
         }
-
-
-
-
 
 
         public void UpdateMessage(int idMessage, MessagePost Updatemessage)
