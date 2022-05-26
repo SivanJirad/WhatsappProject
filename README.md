@@ -6,7 +6,7 @@ It includes 2 projects:
 2. WhatsappProject - the server of the rating app.
 
 ## Set Up:
-This app uses <b>MariaDB<\b>\n.
+This app uses <b>MariaDB<\b>.
 We have 2 databases:
 1. whatsapp - is defined in the class WhatsappContext in the project WebwhatsappApi
 2. items -  is defined in the class ItemsContext in the project WhatsappProject
